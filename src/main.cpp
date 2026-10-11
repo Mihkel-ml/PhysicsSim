@@ -10,6 +10,8 @@ int main() {
 
     Vector2 mouseStartPos = { 0.0f, 0.0f };
 
+    float currentGravity = 300.0f;
+
     while (!WindowShouldClose()) {
         
         float dt = GetFrameTime();
@@ -34,12 +36,26 @@ int main() {
             myBall.velocity.x = (mouseEndPos.x - mouseStartPos.x) * 5.0f;
             myBall.velocity.y = (mouseEndPos.y - mouseStartPos.y) * 5.0f;
 
-            myBall.acceleration.y = 300.0f;
+            myBall.acceleration.y = currentGravity;
         }
+        
 
         if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             myBall.Update(dt);
         }
+
+        if (IsKeyDown(KEY_UP)) {
+            currentGravity -= 5.0f;
+        }
+
+        if (IsKeyDown(KEY_DOWN)) {
+            currentGravity += 5.0f;
+        }
+
+        if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        myBall.acceleration.y = currentGravity;
+        }
+
 
         BeginDrawing();
         ClearBackground(WHITE); 
@@ -54,6 +70,9 @@ int main() {
         
         std::string velText = "Vel X: " + std::to_string((int)myBall.velocity.x) + " Y: " + std::to_string((int)myBall.velocity.y);
         DrawText(velText.c_str(), 20, 70, 20, DARKGREEN);
+
+        std::string gravText = "Grav: " + std::to_string((int)myBall.acceleration.y);
+        DrawText(gravText.c_str(), 20, 95, 20, DARKGREEN);
 
 
 

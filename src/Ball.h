@@ -7,7 +7,7 @@ public:
     Vector2 position;         
     Vector2 velocity;         
     Vector2 acceleration;     
-    float radius;             
+    float radius;         
     
     // Functions
     Ball(float startX, float startY, float startRadius);
